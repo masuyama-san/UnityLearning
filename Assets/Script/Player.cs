@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     private bool bJump;
 
+    private Animator anime;
+
     private Vector2 inputDirection;
 
     private Rigidbody2D rigid;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        anime = GetComponent<Animator>();
         bJump = false;
     }
 
@@ -40,6 +43,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
         rigid.velocity = new Vector2(inputDirection.x * moveSpeed, rigid.velocity.y);
+        anime.SetBool("Walk", inputDirection.x != 0.0f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,6 +51,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             bJump = false;
+
+            anime.SetBool("Jump", bJump);
         }
 
         if (collision.gameObject.tag == "Enemy")
@@ -94,6 +100,8 @@ public class Player : MonoBehaviour
         rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
 
         bJump = true;
+
+        anime.SetBool("Jump", bJump);
     }
 
     public void Damage(int damage)
