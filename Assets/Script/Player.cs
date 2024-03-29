@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
     {
         float halfScaleY = transform.lossyScale.y / 2.0f;
         float enemyHalfScaleY = enemy.transform.lossyScale.y / 2.0f;
-        if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
+        if (transform.position.y >= enemy.transform.position.y)
         {
             Destroy(enemy);
             rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
