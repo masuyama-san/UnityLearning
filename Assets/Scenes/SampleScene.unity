@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 1046113812}
   - component: {fileID: 1046113811}
   - component: {fileID: 1046113816}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -774,8 +774,8 @@ Transform:
   m_GameObject: {fileID: 1046113810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4091, y: -1.75, z: 0}
-  m_LocalScale: {x: 1.4543724, y: 1.4543724, z: 1.4543724}
+  m_LocalPosition: {x: 4.4091, y: -1.13, z: 0}
+  m_LocalScale: {x: 2.7076411, y: 2.7076411, z: 2.7076411}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1020,8 +1020,8 @@ Transform:
   m_GameObject: {fileID: 1519433987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.06, y: -2.23, z: 0}
-  m_LocalScale: {x: 0.5198498, y: 0.5198498, z: 0.5198498}
+  m_LocalPosition: {x: -6.06, y: -1.71, z: 0}
+  m_LocalScale: {x: 1.5527912, y: 1.5527912, z: 1.5527912}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1222,8 +1222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpSpeed: 15
-  hp: 3
+  jumpSpeed: 20
+  hp: 5
+  damageTime: 4
+  flashTime: 0.1
 --- !u!95 &1519433994
 Animator:
   serializedVersion: 7
