@@ -7,22 +7,21 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-
     [SerializeField, Header("移動速度")]
     private float moveSpeed;
-
     [SerializeField, Header("ジャンプ速度")]
     private float jumpSpeed;
-
     [SerializeField, Header("体力")]
     private int hp;
+    [SerializeField, Header("無敵時間")]
+    private float damageTime;
+    [SerializeField, Header("点滅時間")]
+    private float flashTime;
 
     private bool bJump;
-
     private Animator anime;
-
+    private SpriteRenderer spriteRenderer;
     private Vector2 inputDirection;
-
     private Rigidbody2D rigid;
 
     // Start is called before the first frame update
@@ -30,6 +29,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         bJump = false;
     }
 
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        Debug.Log(hp);
+        LookMoveDirec();
     }
 
     private void Move()
@@ -58,8 +58,21 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             HitEnemy(collision.gameObject);
+
         }
 
+    }
+
+    private void LookMoveDirec()
+    {
+        if (inputDirection.x > 0.0f)
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
+        else if (inputDirection.x < 0.0f)
+        {
+            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+        }
     }
 
     private void HitEnemy(GameObject enemy)
@@ -74,7 +87,24 @@ public class Player : MonoBehaviour
         else
         {
             enemy.GetComponent<Enemy>().PlayerDamage(this);
+            gameObject.layer = LayerMask.NameToLayer("PlayerDamage");
+            StartCoroutine(Damage());
         }
+    }
+
+    IEnumerator Damage()
+    {
+        Color color = spriteRenderer.color;
+        for (int i = 0; i < damageTime; i++)
+        {
+            yield return new WaitForSeconds(flashTime);
+            spriteRenderer.color = new Color(color.r, color.g, color.b, 0.0f);
+
+            yield return new WaitForSeconds(flashTime);
+            spriteRenderer.color = new Color(color.r, color.g, color.b, 1.0f);
+        }
+        spriteRenderer.color = color;
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public void Dead()
