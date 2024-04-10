@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         else if (rayHit.transform.tag == "Floor" && !bFloor)
         {
             bFloor = true;
-            anime.SetBool("Idle", true);
+            anime.SetBool("Idle", false);
         }
     }
 

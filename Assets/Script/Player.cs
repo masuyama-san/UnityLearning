@@ -43,24 +43,27 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if(bJump) return;
+        if (bJump) return;
 
         rigid.velocity = new Vector2(inputDirection.x * moveSpeed, rigid.velocity.y);
         anime.SetBool("Walk", inputDirection.x != 0.0f);
     }
 
+    [Obsolete]
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // if (collision.gameObject.tag == "Floor")
-        // {
-        //     bJump = false;
-
-        //     anime.SetBool("Jump", bJump);
-        // }
 
         if (collision.gameObject.tag == "Enemy")
         {
             HitEnemy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Goal")
+        {
+            FindObjectOfType<MainManager>().ShowGameClearUI();
+            //プレイヤースクリプのアクティブを切る
+            enabled = false;
+            //コンポーネントのアクティブも切る
+            GetComponent<PlayerInput>().enabled = false;
         }
 
     }
