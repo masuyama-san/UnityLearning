@@ -8,6 +8,9 @@ public class MainManager : MonoBehaviour
     [SerializeField, Header("ゲームオーバーUI")]
     private GameObject gameOverUI;
 
+    [SerializeField, Header("ゲームクリアUI")]
+    private GameObject gameClearUI;
+
     private GameObject player;
 
     // Start is called before the first frame update
@@ -29,5 +32,11 @@ public class MainManager : MonoBehaviour
             return;
         }
         gameOverUI.SetActive(true);
+    }
+
+    //プレイヤースクリプトで呼び出し
+    public void ShowGameClearUI()
+    {
+        gameClearUI.SetActive(true);
     }
 }
